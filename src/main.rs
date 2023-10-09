@@ -1,6 +1,7 @@
 // src/main.rs
 #[macro_use]
 extern crate diesel;
+extern crate ulid;
 
 // use actix::*;
 // use actix_cors::Cors;
@@ -16,6 +17,17 @@ extern crate diesel;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    let u = ulid::Ulid::new();
+
+    // Convert ULID to string
+    let ulid_string = u.to_string();
+
+    // Parse a ULID from string
+    let parsed_ulid = ulid::Ulid::from_string(&ulid_string).unwrap();
+
+    println!("Generated ULID: {}", ulid_string);
+    println!("Parsed ULID: {}", parsed_ulid);
+    
     // let server = server::ChatServer::new().start();
     // let conn_spec = "chat.db";
     // let manager = ConnectionManager::<SqliteConnection>::new(conn_spec);
