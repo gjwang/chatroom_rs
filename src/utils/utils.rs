@@ -7,13 +7,14 @@ use std::time::Duration;
 use serde::de::DeserializeOwned;
 use serde::Serialize;
 use tokio;
+use ulid::Ulid;
 
-pub fn gen_ulid() -> ulid::Ulid {
-    ulid::Ulid::new()
+pub fn gen_ulid() -> Ulid {
+    Ulid::new()
 }
 
 pub fn gen_ulid_str() -> String {
-    ulid::Ulid::new().to_string()
+    Ulid::new().to_string()
 }
 
 
