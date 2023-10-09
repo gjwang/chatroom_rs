@@ -8,7 +8,12 @@ use diesel::prelude::*;
 use diesel::prelude::*;
 
 use dotenv::dotenv;
+use models::{NewPerson, Person};
+use schema::persons;
 use utils::gen_ulid_str;
+
+mod models;
+mod schema;
 
 // use actix::*;
 // use actix_cors::Cors;
@@ -22,27 +27,14 @@ use utils::gen_ulid_str;
 // mod server;
 // mod session;
 
-table! {
-    persons (id) {
-        id -> Integer,
-        name -> Text,
-        age -> Integer,
-    }
-}
+// table! {
+//     persons (id) {
+//         id -> Integer,
+//         name -> Text,
+//         age -> Integer,
+//     }
+// }
 
-#[derive(Insertable)]
-#[table_name = "persons"]
-struct NewPerson<'a> {
-    name: &'a str,
-    age: i32,
-}
-
-#[derive(Queryable)]
-struct Person {
-    id: i32,
-    name: String,
-    age: i32,
-}
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {

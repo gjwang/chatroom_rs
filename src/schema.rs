@@ -2,8 +2,8 @@
 
 diesel::table! {
     persons (id) {
-        id -> Nullable<Integer>,
+        id -> Integer,
         name -> Text,
-        age -> Nullable<Integer>,
+        age -> Integer,
     }
 }
