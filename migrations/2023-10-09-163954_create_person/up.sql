@@ -1,2 +1,7 @@
 -- Your SQL goes here
-DROP TABLE persons;
+CREATE TABLE persons
+(
+    id   INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    age  INTEGER
+);
