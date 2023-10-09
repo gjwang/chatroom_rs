@@ -3,6 +3,8 @@
 extern crate diesel;
 extern crate ulid;
 
+use utils::sleep;
+
 // use actix::*;
 // use actix_cors::Cors;
 // use actix_files::Files;
@@ -16,6 +18,7 @@ extern crate ulid;
 // mod session;
 
 #[actix_web::main]
+// #[tokio::main]
 async fn main() -> std::io::Result<()> {
     let u = ulid::Ulid::new();
 
@@ -27,7 +30,9 @@ async fn main() -> std::io::Result<()> {
 
     println!("Generated ULID: {}", ulid_string);
     println!("Parsed ULID: {}", parsed_ulid);
-    
+
+    // sleep(10).await();
+
     // let server = server::ChatServer::new().start();
     // let conn_spec = "chat.db";
     // let manager = ConnectionManager::<SqliteConnection>::new(conn_spec);
