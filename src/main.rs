@@ -2,6 +2,12 @@
 #[macro_use]
 extern crate diesel;
 
+use std::env;
+
+use diesel::prelude::*;
+use diesel::prelude::*;
+
+use dotenv::dotenv;
 use utils::gen_ulid_str;
 
 // use actix::*;
@@ -16,6 +22,28 @@ use utils::gen_ulid_str;
 // mod server;
 // mod session;
 
+table! {
+    persons (id) {
+        id -> Integer,
+        name -> Text,
+        age -> Integer,
+    }
+}
+
+#[derive(Insertable)]
+#[table_name = "persons"]
+struct NewPerson<'a> {
+    name: &'a str,
+    age: i32,
+}
+
+#[derive(Queryable)]
+struct Person {
+    id: i32,
+    name: String,
+    age: i32,
+}
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     let ulid = gen_ulid_str();
@@ -23,6 +51,27 @@ async fn main() -> std::io::Result<()> {
     // Convert ULID to string
     // let ulid_string = u.to_string();
     println!("Generated ULID: {}", ulid);
+
+    dotenv().ok();
+    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+    let mut conn = SqliteConnection::establish(&database_url).unwrap();
+
+    // Insert
+    let new_person = NewPerson { name: "Alice", age: 30 };
+    diesel::insert_into(persons::table)
+        .values(&new_person)
+        .execute(&mut conn)
+        .unwrap();
+
+    // Query
+    let results: Vec<Person> = persons::table
+        .limit(5)
+        .load::<Person>(&mut conn)
+        .unwrap();
+
+    for person in results {
+        println!("{}: {} ({})", person.id, person.name, person.age);
+    }
 
     // Parse a ULID from string
     // let parsed_ulid = ulid::Ulid::from_string(&ulid_string).unwrap();
