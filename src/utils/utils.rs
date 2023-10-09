@@ -1,9 +1,21 @@
-use serde::de::DeserializeOwned;
-use serde::Serialize;
+extern crate ulid;
+
 use std::fs;
 use std::path::Path;
 use std::time::Duration;
+
+use serde::de::DeserializeOwned;
+use serde::Serialize;
 use tokio;
+
+pub fn gen_ulid() -> ulid::Ulid {
+    ulid::Ulid::new()
+}
+
+pub fn gen_ulid_str() -> String {
+    ulid::Ulid::new().to_string()
+}
+
 
 pub async fn sleep(secs: u64) {
     tokio::time::sleep(Duration::from_secs(secs)).await;

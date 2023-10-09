@@ -1,9 +1,8 @@
 // src/main.rs
 #[macro_use]
 extern crate diesel;
-extern crate ulid;
 
-use utils::sleep;
+use utils::gen_ulid_str;
 
 // use actix::*;
 // use actix_cors::Cors;
@@ -20,16 +19,16 @@ use utils::sleep;
 #[actix_web::main]
 // #[tokio::main]
 async fn main() -> std::io::Result<()> {
-    let u = ulid::Ulid::new();
+    let ulid = gen_ulid_str();
 
     // Convert ULID to string
-    let ulid_string = u.to_string();
+    // let ulid_string = u.to_string();
+    println!("Generated ULID: {}", ulid);
 
     // Parse a ULID from string
-    let parsed_ulid = ulid::Ulid::from_string(&ulid_string).unwrap();
+    // let parsed_ulid = ulid::Ulid::from_string(&ulid_string).unwrap();
 
-    println!("Generated ULID: {}", ulid_string);
-    println!("Parsed ULID: {}", parsed_ulid);
+    // println!("Parsed ULID: {}", parsed_ulid);
 
     // sleep(10).await();
 
