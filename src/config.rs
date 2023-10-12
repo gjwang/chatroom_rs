@@ -25,11 +25,10 @@ pub fn read_config() -> Result<AppConfig, ConfyError> {
 
 pub fn read_config_path(config_file_path: PathBuf) -> Result<AppConfig, ConfyError> {
     // Create a new configuration instance with the specified file path
-    let config = confy::load_path(config_file_path.clone())
-        .or_else(|_| {
-            // If the file doesn't exist or there's an error reading it, use the default configuration
-            Ok(AppConfig::default())
-        })?;
+    let config = confy::load_path(config_file_path.clone()).or_else(|_| {
+        // If the file doesn't exist or there's an error reading it, use the default configuration
+        Ok(AppConfig::default())
+    })?;
 
     Ok(config)
 }
