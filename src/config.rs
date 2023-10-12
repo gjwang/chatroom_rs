@@ -25,7 +25,7 @@ pub fn read_config() -> Result<AppConfig, ConfyError> {
     confy::load("myapp", "AppConfig")
 }
 
-pub fn read_config_path(config_file_path: &PathBuf) -> Result<AppConfig, ConfyError> {
+pub fn read_config_path(config_file_path: PathBuf) -> Result<AppConfig, ConfyError> {
     // Create a new configuration instance with the specified file path
     let config = confy::load_path(config_file_path.clone())
         .or_else(|_| {
@@ -36,7 +36,7 @@ pub fn read_config_path(config_file_path: &PathBuf) -> Result<AppConfig, ConfyEr
     Ok(config)
 }
 
-pub fn write_config_path(config: &AppConfig, config_file_path: &PathBuf) -> Result<(), ConfyError> {
+pub fn write_config_path(config: &AppConfig, config_file_path: PathBuf) -> Result<(), ConfyError> {
     confy::store_path(config_file_path, config)?;
     Ok(())
 }
@@ -73,10 +73,10 @@ mod tests {
             server_url: "https://test.example.com".to_string(),
         };
 
-        let write_result = write_config_path(&config_to_write, &config_file_path);
+        let write_result = write_config_path(&config_to_write, config_file_path.clone());
         assert!(write_result.is_ok());
 
-        let read_result = read_config_path(&config_file_path);
+        let read_result = read_config_path(config_file_path.clone());
 
         // Assert that the result matches what we wrote
         assert_eq!(read_result.unwrap(), config_to_write);
