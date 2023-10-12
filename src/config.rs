@@ -1,5 +1,3 @@
-extern crate tempfile;
-
 use std::path::PathBuf;
 
 // Add this line to import the crate
@@ -43,12 +41,13 @@ pub fn write_config_path(config: &AppConfig, config_file_path: PathBuf) -> Resul
 
 #[cfg(test)]
 mod tests {
-    // use tempfile::tempdir;
-
     use super::*;
 
     #[test]
     fn test_read_default_config() {
+        // let file = confy::get_configuration_file_path("myapp", None).unwrap();
+        // println!("The configuration file path is: {:#?}", file);
+
         // Perform the test
         let config_result = read_config();
 
