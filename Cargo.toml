@@ -20,6 +20,8 @@ uuid = { version = "1", features = ["v4", "serde"] }
 ulid = "1.1.0"
 chrono = "0.4.23"
 actix-cors = "0.6.4"
+confy = "0.5.1"
+tempfile = "3.2"
 
 [lib]
 name = "utils" # usually the name of your crate

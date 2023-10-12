@@ -2,18 +2,18 @@
 #[macro_use]
 extern crate diesel;
 
-use std::env;
-
 use diesel::prelude::*;
 use diesel::prelude::*;
-
 use dotenv::dotenv;
 use models::{NewPerson, Person};
 use schema::persons;
+use std::env;
 use utils::gen_ulid_str;
 
 mod models;
 mod schema;
+
+mod config;
 
 // use actix::*;
 // use actix_cors::Cors;
