@@ -17,7 +17,6 @@ pub fn gen_ulid_str() -> String {
     Ulid::new().to_string()
 }
 
-
 pub async fn sleep(secs: u64) {
     tokio::time::sleep(Duration::from_secs(secs)).await;
 }
@@ -26,14 +25,18 @@ pub async fn sleep_millis(millis: u64) {
     tokio::time::sleep(Duration::from_millis(millis)).await;
 }
 
-
-pub async fn read_json_file<T: DeserializeOwned>(path: &Path) -> Result<T, Box<dyn std::error::Error>> {
+pub async fn read_json_file<T: DeserializeOwned>(
+    path: &Path,
+) -> Result<T, Box<dyn std::error::Error>> {
     let content = fs::read_to_string(path)?;
     let data: T = serde_json::from_str(&content)?;
     Ok(data)
 }
 
-pub async fn write_json_file<T: Serialize>(data: &T, path: &Path) -> Result<(), Box<dyn std::error::Error>> {
+pub async fn write_json_file<T: Serialize>(
+    data: &T,
+    path: &Path,
+) -> Result<(), Box<dyn std::error::Error>> {
     let content = serde_json::to_string_pretty(data)?;
     fs::write(path, content)?;
     Ok(())
